@@ -1,0 +1,115 @@
+version: '3'
+services:
+  solr1:
+    image: solr:7.5
+    container_name: solr1
+    ports:
+     - "8983:8983"
+    environment:
+      - ZK_HOST=solr-zk1:2181,solr-zk2:2181,solr-zk3:2181
+      - SOLR_PORT=8983
+      - SOLR_HOST=dev.designre.com
+    extra_hosts:
+      - dev.designre.com:{{ HOSTIP }}
+    networks:
+      - solr-cloud
+    depends_on:
+      - solr-zk1
+      - solr-zk2
+      - solr-zk3
+
+  solr2:
+    image: solr:7.5
+    container_name: solr2
+    ports:
+     - "8984:8984"
+    environment:
+      - ZK_HOST=solr-zk1:2181,solr-zk2:2181,solr-zk3:2181
+      - SOLR_PORT=8984
+      - SOLR_HOST=dev.designre.com
+    extra_hosts:
+      - dev.designre.com:{{ HOSTIP }}
+    networks:
+      - solr-cloud
+    depends_on:
+      - solr-zk1
+      - solr-zk2
+      - solr-zk3
+
+  solr3:
+    image: solr:7.5
+    container_name: solr3
+    ports:
+     - "8985:8985"
+    environment:
+      - ZK_HOST=solr-zk1:2181,solr-zk2:2181,solr-zk3:2181
+      - SOLR_PORT=8985
+      - SOLR_HOST=dev.designre.com
+    extra_hosts:
+      - dev.designre.com:{{ HOSTIP }}
+    networks:
+      - solr-cloud
+    depends_on:
+      - solr-zk1
+      - solr-zk2
+      - solr-zk3
+
+  solr4:
+    image: solr:7.5
+    container_name: solr4
+    ports:
+     - "8986:8986"
+    environment:
+      - ZK_HOST=solr-zk1:2181,solr-zk2:2181,solr-zk3:2181
+      - SOLR_PORT=8986
+      - SOLR_HOST=dev.designre.com
+    extra_hosts:
+      - dev.designre.com:{{ HOSTIP }}
+    networks:
+      - solr-cloud
+    depends_on:
+      - solr-zk1
+      - solr-zk2
+      - solr-zk3
+
+  solr-zk1:
+    image: zookeeper:3.5
+    container_name: solr-zk1
+    restart: always
+    hostname: solr-zk1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888;2181 server.2=solr-zk2:2888:3888;2181 server.3=solr-zk3:2888:3888;2181
+    networks:
+      - solr-cloud
+
+  solr-zk2:
+    image: zookeeper:3.5
+    container_name: solr-zk2
+    restart: always
+    hostname: solr-zk2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=solr-zk1:2888:3888;2181 server.2=0.0.0.0:2888:3888;2181 server.3=solr-zk3:2888:3888;2181
+    networks:
+      - solr-cloud
+
+  solr-zk3:
+    image: zookeeper:3.5
+    container_name: solr-zk3
+    restart: always
+    hostname: solr-zk3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=solr-zk1:2888:3888;2181 server.2=solr-zk2:2888:3888;2181 server.3=0.0.0.0:2888:3888;2181
+    networks:
+      - solr-cloud
+
+networks:
+  solr-cloud:
