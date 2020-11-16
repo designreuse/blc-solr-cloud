@@ -35,7 +35,7 @@ echo "***************************blcCollections created*************************
 echo "***************************start to create aliases***************************"
 
 curl "$local_ip:8986/solr/admin/collections?action=CREATEALIAS&name=catalog&collections=catalog0"
-curl "$local_ip:8986/solr/admin/collections?action=CREATEALIAS&name=catalog-reindex&collections=catalog0"
+curl "$local_ip:8986/solr/admin/collections?action=CREATEALIAS&name=catalog-reindex&collections=catalog1"
 echo "***************************aliases created***************************"
 
 echo "success"
