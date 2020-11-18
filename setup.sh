@@ -11,7 +11,7 @@ echo "***************************solrCloud containers inited********************
 echo "***************************start to configure solrCloud***************************"
 chmod a+r ./config/catalog/solrconfig.xml ./config/catalog/managed-schema
 docker exec solr1 bash -c "mkdir -p /opt/solr/server/solr/configsets/catalog/conf"
-docker cp ./config/catalog/solrconfig.xml solr1:/opt/solr/server/solr/configsets/catalog/conf/
+docker cp ./config/catalog/. solr1:/opt/solr/server/solr/configsets/catalog/conf/
 
 chmod a-r ./config/catalog/solrconfig.xml ./config/catalog/managed-schema
 
